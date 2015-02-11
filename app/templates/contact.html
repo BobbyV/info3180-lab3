@@ -1,0 +1,38 @@
+<head>
+<style>
+	.form{
+	background-color: ccffcc;
+	width: 480px
+	}
+</style>
+</head>
+
+<div class="form">
+<h1>CONTACT FORM</h1>
+<form id="contact_form" action="#" method="POST" enctype="multipart/form-data">
+	<div class="row">
+	<span>Fill in this form to contact the site owners.</span></br>
+		<strong><label for="name">Name:</label></strong><br />
+		<span>Please enter your name</span></br>
+		<input id="name" class="input" name="name" type="text" value="" size="30" /><br />
+	</div>
+	
+	<div class="row">
+		<strong><label for="email">Email:</label></strong><br />
+		<span>Please enter your e-mail address</span></br>
+		<input id="email" class="input" name="email" type="text" value="" size="30" /><br />
+	</div>
+	
+	<div class="row">
+	<strong><label for="subject">Subject:</label></strong></br>
+	<input id="subject" class="input" name="subject" type="text" value="" size="30" /></br>
+	</div>
+	
+	<div class="row">
+		<strong><label for="message">Message:</label></strong><br />
+		<span>Please enter the message you want to send.</span></br>
+		<textarea id="message" class="input" name="message" rows="7" cols="60"></textarea><br />
+	</div>
+	</br><input id="submit_button" type="submit" value="Send email" />
+</form>		
+</div>				

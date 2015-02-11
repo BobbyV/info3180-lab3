@@ -36,6 +36,10 @@ def send_text_file(file_name):
     file_dot_text = file_name + '.txt'
     return app.send_static_file(file_dot_text)
 
+@app.route('/contact/')
+def contact():
+  """Render webpage contact"""
+  return render_template('contact.html')
 
 @app.after_request
 def add_header(response):
@@ -55,4 +59,4 @@ def page_not_found(error):
 
 
 if __name__ == '__main__':
-    app.run(debug=True,host="0.0.0.0",port="8888")
+    app.run(debug=True,host="0.0.0.0",port="8080")
