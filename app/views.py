@@ -5,7 +5,7 @@ Werkzeug Documentation:  http://werkzeug.pocoo.org/documentation/
 
 This file creates your application.
 """
-
+import smtplib
 from app import app
 from flask import render_template, request, redirect, url_for
 
@@ -13,6 +13,43 @@ from flask import render_template, request, redirect, url_for
 ###
 # Routing for your application.
 ###
+
+def sendmail(fromname,fromaddr,subject,msg):
+  # Credentials (if needed)
+
+  username = 'vaughnwatson22@gmail.com'
+
+  password = 'nkftpseosltzdezn'
+
+  # The actual mail send
+
+  server = smtplib.SMTP('smtp.gmail.com:587')
+
+  server.starttls()
+  server.login(username,password)
+  toaddrs = 'vaughnwatson22@gmail.com'
+  message = """From: {} <{}>
+
+  To: {} <{}>
+
+  Subject: {}
+
+  {}
+
+  """
+  toname = 'David Bain'
+
+  messagetosend = message.format(
+   fromname,
+   fromaddr,
+   toname,
+   toaddrs,
+   subject,
+   msg)
+  server.sendmail(fromaddr, toaddrs, messagetosend)
+
+  server.quit()
+  return True
 
 @app.route('/')
 def home():
@@ -36,9 +73,22 @@ def send_text_file(file_name):
     file_dot_text = file_name + '.txt'
     return app.send_static_file(file_dot_text)
 
-@app.route('/contact/')
+@app.route('/contact/', methods=["POST", "GET"])
 def contact():
   """Render webpage contact"""
+  if request.method == "POST":
+    name = request.form["name"]
+    email = request.form["email"]
+    subject = request.form["subject"]
+    message = request.form["message"]
+    
+    if sendmail(fromname=name,
+                fromaddr=email,
+                subject=subject,
+                msg=message):
+      return render_template("contact.html",
+                             status="Mail sent"
+                            )
   return render_template('contact.html')
 
 @app.after_request
